@@ -137,13 +137,13 @@ public class SyntaxAnalyzer {
 //    }
     switch (parseToken.get(index).classPart){
 
-   /* case "id":
-        {   /*recheck*/
-          /*  if (incdec()){
+    case "id":
+    { /*   //recheck
+           if (incdec()){
                 return true;
             }
-            else{*/
-             /*      if (object()){
+            else{
+                  if (object()){
                         return true;
                     }else{
                         if (declaration())
@@ -151,18 +151,28 @@ public class SyntaxAnalyzer {
                             return true;
                         }
                     }
-                */
-          /*  }
+                
+           }
             break;
-        }*/
+        */
+        if (parseToken.get(index).classPart.equals("id")){
+            printandInc("id");
+            if (parseToken.get(index).classPart.equals("Assign")){
+                printandInc("=");
+                if (expression()){
+                    return true;
+                }
+            }
+        }
+    }
     
-    case "obj":
+   /* case "obj":
     {   if (object())
         {
             return true;
         }
         break;
-    }
+    }*/
     case "function":
     {   /*recheck*/
             if (function()){
@@ -417,18 +427,139 @@ public class SyntaxAnalyzer {
                         
                         
      }else{
-      print("obj keyword not find not found");
+      print("obj keyword not found");
      }
         
         
     return false;
     }
     
-
-
-
-
-
+    private boolean expression(){
+     
+        if (T()){
+            print("T");
+            if (Eprime()){
+                    print("E'");
+                    return true;
+            }else{
+                    print(" E' not found");
+            }
+        }else{
+            print(" T not found");
+     }    
+    return false;
+    }
+    
+    private boolean Eprime(){
+     
+        if (parseToken.get(index).classPart.equals("Add-Sub")){
+             printandInc("P_M");
+               if (T()){
+                    print("T");
+                    if (Eprime()){
+                        print("E'");
+                        return true;
+                    }else{
+                       print(" E' not found");
+                    }
+                }else{
+                    print("T not found");
+                }
+        }else{
+            return true;
+        }
+        
+        
+    return false;
+    }
+    
+    private boolean T(){
+     
+        if (F()){
+             print("F");
+               if (Tprime()){
+                  print("T'");
+                }else{
+                    print("T' not found");
+                }
+        }else{
+            print("F not found");
+        }
+         
+    return false;
+    }
+    
+    private boolean Tprime(){
+     
+        if (parseToken.get(index).classPart.equals("Divide") || parseToken.get(index).classPart.equals("Multiply")){
+             printandInc("H_Po");
+               if (F()){
+                    print("F");
+                    if (Tprime()){
+                        print("T'");
+                        return true;
+                    }else{
+                       print(" T' not found");
+                    }
+                }else{
+                    print("F not found");
+                }
+        }else{
+            return true;
+        }
+        
+        
+    return false;
+    }
+    
+    private boolean F(){
+     
+        if (parseToken.get(index).classPart.equals("id")){
+             printandInc("ID");
+               if (FuncCall()){
+                    print("()");
+                }
+        }else if (value()){
+                return true;
+        } else if (parseToken.get(index).classPart.equals("(")){
+            printandInc("(");
+            if(expression()){
+                print("E");
+                if (parseToken.get(index).classPart.equals(")")){
+                    return true;
+                }else{
+                    print("Missing )");
+                }
+            }else{
+                print("Missing expression");
+            }
+        }else{
+            print("F not decalared properly");
+        }
+        
+        
+    return false;
+    }
+    
+    private boolean FuncCall(){
+        if (parseToken.get(index).classPart.equals("(")){
+            printandInc("(");
+            if(parameter()){
+                print("");
+                if (parseToken.get(index).classPart.equals(")")){
+                    return true;
+                }else{
+                    print("Missing )");
+                }
+            }else{
+                print("Missing expression");
+            }
+        }else{
+            return true;
+        }
+        return false;
+    }    
+    
     private boolean wloop(){
                 if (parseToken.get(index).classPart.equals("while")){
                         printandInc("<wloop>");
@@ -541,7 +672,7 @@ public class SyntaxAnalyzer {
         return false;    
     }
     
-private boolean init(){
+    private boolean init(){
           if (parseToken.get(index).classPart.equals("DataType")){
            printandInc("dt");
            
@@ -651,7 +782,7 @@ private boolean init(){
         }
         return false;
     }
-private boolean array(){
+    private boolean array(){
           if (parseToken.get(index).classPart.equals("DataStructure")){
            printandInc("Array");
            
@@ -686,7 +817,7 @@ private boolean array(){
         return false;
     
     }
-private boolean function(){
+    private boolean function(){
         
         if (parseToken.get(index).classPart.equals("function")){
             printandInc("func");
