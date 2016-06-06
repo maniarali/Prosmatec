@@ -13,6 +13,8 @@ public class Re {
       
       // generate ALL RE's
       public Re(){
+          
+            
       //Class
          matching.add(new Re((Pattern.compile("class")),"class") );
           
@@ -32,7 +34,7 @@ public class Re {
            
          //Assignment Operator 
          matching.add(new Re((Pattern.compile("=")),"Assign") );
-         matching.add(new Re((Pattern.compile("=|\\+=|\\-=|/=|\\*=|=\\+|=\\-|=/|=\\*")),"Assign-Operator") );
+         matching.add(new Re((Pattern.compile("=|\\+=|\\-=")),"Assignment-Operator") );
             
          matching.add(new Re((Pattern.compile("array")),"DataStructure") ); 
            
@@ -69,7 +71,10 @@ public class Re {
           //Id
           matching.add(new Re((Pattern.compile("[a-z]+[[a-z]*[0-9]*]*")),"id") );
           
-          matching.add(new Re((Pattern.compile("[0-9]+.[0-9]*|[0-9]*.[0-9]+")),"FloatConstant") );
+          
+          matching.add(new Re((Pattern.compile("[0-9]*[.][0-9]*")),"FloatConstant") );
+          matching.add(new Re((Pattern.compile("[0-9]*[.][0-9]+")),"FloatConstant") );
+         
 
           
           //Error
