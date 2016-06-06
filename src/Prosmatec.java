@@ -131,7 +131,7 @@ public class Prosmatec extends javax.swing.JFrame {
         Token tokenObject = new Token();
 
         ArrayList<Token> tok = tokenObject.getToken(inputText.getText());
-        inputText.setText("Semantic:\n");
+       // inputText.setText("Semantic:\n");
         SyntaxAnalyzer syn = new SyntaxAnalyzer(tok);
         syn.getSyntax();
     }//GEN-LAST:event_jButton2ActionPerformed

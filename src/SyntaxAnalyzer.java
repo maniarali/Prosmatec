@@ -466,7 +466,11 @@ public class SyntaxAnalyzer {
                     print("T not found");
                 }
         }else{
-            return true;
+            if (parseToken.get(index).classPart.equals(";")){
+                return true;
+            }else{
+                return false;
+            }
         }
         
         
@@ -505,7 +509,11 @@ public class SyntaxAnalyzer {
                     print("F not found");
                 }
         }else{
-            return true;
+            if (parseToken.get(index).classPart.equals(";")){
+                return true;
+            }else{
+                return false;
+            }
         }
         
         
@@ -554,8 +562,13 @@ public class SyntaxAnalyzer {
             }else{
                 print("Missing expression");
             }
+            
         }else{
-            return true;
+            if (parseToken.get(index).classPart.equals(";")){
+                    return true;
+                }else{
+                    return false;
+                }
         }
         return false;
     }    
