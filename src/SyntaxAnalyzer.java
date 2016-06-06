@@ -14,10 +14,13 @@ public class SyntaxAnalyzer {
     
     
     ArrayList<Token> parseToken;
+    ArrayList<searchTable> searchTable;
     int index = 0;
        // int I = parseToken.size() ;
         public SyntaxAnalyzer(ArrayList tokens){
         this.parseToken = tokens;
+        
+        searchTable = new ArrayList();
     }
     
     public void getSyntax(){
