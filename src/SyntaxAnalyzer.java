@@ -952,7 +952,7 @@ public class SyntaxAnalyzer {
                 parseToken.get(index).classPart.equals("FloatConstant") ||
                 parseToken.get(index).classPart.equals("CharConstant"))
         { 
-            print("constanValue");
+            printandInc("constanValue");
             return true;
         } else{
             return false;
