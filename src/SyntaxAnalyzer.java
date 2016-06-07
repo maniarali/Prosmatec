@@ -78,7 +78,7 @@ public class SyntaxAnalyzer {
                            if (multiStatement()){
                              //  printandInc(" ");
                             }else{
-                           
+                               
                             }
                             if (("]").equals(parseToken.get(index).classPart)){
                                 printandInc("]");
@@ -161,9 +161,13 @@ public class SyntaxAnalyzer {
                 printandInc("=");
                 if (expression()){
                     return true;
+                }else{
+                    return false;
                 }
+                
             }
         }
+        break;
     }
     
    /* case "obj":
@@ -468,12 +472,9 @@ public class SyntaxAnalyzer {
                 }else{
                     print("T not found");
                 }
-        }else{
-            if (parseToken.get(index).classPart.equals(";")||parseToken.get(index).classPart.equals(")")){
+        }else if (parseToken.get(index).classPart.equals(";")||parseToken.get(index).classPart.equals(")")){
                 return true;
-            }else{
-                return false;
-            }
+            
         }
         
         
@@ -518,7 +519,7 @@ public class SyntaxAnalyzer {
         }else if (parseToken.get(index).classPart.equals("Add-Sub")|| parseToken.get(index).classPart.equals(";")){
                 return true;
        }
-    return true;
+    return false;
     }
     
     private boolean F(){
