@@ -440,7 +440,10 @@ public class SyntaxAnalyzer {
             print("T");
             if (Eprime()){
                     print("E'");
-                    return true;
+                    if (parseToken.get(index).classPart.equals(";")){
+                        printandInc(";");
+                        return true;
+                    }
             }else{
                     print(" E' not found");
             }
@@ -466,7 +469,7 @@ public class SyntaxAnalyzer {
                     print("T not found");
                 }
         }else{
-            if (parseToken.get(index).classPart.equals(";")){
+            if (parseToken.get(index).classPart.equals(";")||parseToken.get(index).classPart.equals(")")){
                 return true;
             }else{
                 return false;
@@ -483,6 +486,7 @@ public class SyntaxAnalyzer {
              print("F");
                if (Tprime()){
                   print("T'");
+                  return true;
                 }else{
                     print("T' not found");
                 }
@@ -505,19 +509,16 @@ public class SyntaxAnalyzer {
                     }else{
                        print(" T' not found");
                     }
-                }else{
+                }else if (parseToken.get(index).classPart.equals("Add-Sub")|| parseToken.get(index).classPart.equals(";")){
+                     return true;
+                }
+               else{
                     print("F not found");
                 }
-        }else{
-            if (parseToken.get(index).classPart.equals(";")){
+        }else if (parseToken.get(index).classPart.equals("Add-Sub")|| parseToken.get(index).classPart.equals(";")){
                 return true;
-            }else{
-                return false;
-            }
-        }
-        
-        
-    return false;
+       }
+    return true;
     }
     
     private boolean F(){
@@ -525,7 +526,8 @@ public class SyntaxAnalyzer {
         if (parseToken.get(index).classPart.equals("id")){
              printandInc("ID");
                if (FuncCall()){
-                    print("()");
+                    print("");
+                    return true;
                 }
         }else if (value()){
                 return true;
@@ -552,19 +554,22 @@ public class SyntaxAnalyzer {
     private boolean FuncCall(){
         if (parseToken.get(index).classPart.equals("(")){
             printandInc("(");
-            if(parameter()){
-                print("");
+           // if(parameter()){
+                print(" ");
                 if (parseToken.get(index).classPart.equals(")")){
+                    printandInc(")");
                     return true;
                 }else{
                     print("Missing )");
                 }
-            }else{
-                print("Missing expression");
-            }
+           // }else{
+             //   print("Missing expression");
+           // }
             
         }else{
-            if (parseToken.get(index).classPart.equals(";")){
+            if (parseToken.get(index).classPart.equals("Divide") || parseToken.get(index).classPart.equals("Multiply")
+                || parseToken.get(index).classPart.equals("Add-Sub")|| parseToken.get(index).classPart.equals(";")
+               ){
                     return true;
                 }else{
                     return false;
@@ -947,7 +952,7 @@ public class SyntaxAnalyzer {
                 parseToken.get(index).classPart.equals("FloatConstant") ||
                 parseToken.get(index).classPart.equals("CharConstant"))
         { 
-            print("value");
+            print("constanValue");
             return true;
         } else{
             return false;
@@ -1056,6 +1061,6 @@ public class SyntaxAnalyzer {
         
     }
     private void print(String value){
-        System.out.print(value);
+        System.out.println(value);
     }
 }
